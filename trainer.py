@@ -196,6 +196,7 @@ class ChessTrainer:
             
             game_record.finalize(result)
             self.total_games += 1
+            print(f"Game {self.total_games} completed. Result: {result}")
             
             return game_record
         

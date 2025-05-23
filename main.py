@@ -84,14 +84,28 @@ def main():
             print("Press Ctrl+C to stop training")
             
             trainer.start_training()
-            
+            save_points = {100, 500, 1000, 2000}
+            saved_points = set()
             try:
                 while True:
                     stats = trainer.get_training_stats()
                     print(f"Games: {stats['total_games']}, "
                           f"Steps: {stats['total_training_steps']}, "
                           f"Buffer: {stats['buffer_size']}")
-                    
+
+                    if stats['total_games'] in save_points and stats['total_games'] not in saved_points:
+                        filename = f"trained_agent_{stats['total_games']}games.pth"
+                        trainer.network_manager.save_model(filename)
+                        print(f"✅ Model saved as {filename}")
+                        saved_points.add(stats['total_games'])
+
+                    if stats['total_games'] >= 2000:
+                        print("Reached 2000 games, stopping training and saving model.")
+                        trainer.stop_training()
+                        trainer.network_manager.save_model("final_model_2000games.pth")
+                        print("✅ Final model saved as final_model_2000games.pth")
+                        break
+
                     import time
                     time.sleep(10)
                     
