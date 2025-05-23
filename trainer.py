@@ -119,7 +119,7 @@ class ChessTrainer:
             print("Training stopped")
     
     def _training_loop(self):
-        """Main training loop that runs in a separate thread."""
+        print("Training loop started...", flush=True)
         try:
             while self.is_training:
                 # Generate self-play games
