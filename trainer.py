@@ -158,7 +158,7 @@ class ChessTrainer:
             self.is_training = False
     
     def _play_self_play_game(self):
-        """Play one self-play game and return the game record."""
+        print("Starting a new self-play game...", flush=True)
         try:
             game_engine = ChessEngine()
             game_record = GameRecord()
@@ -201,7 +201,9 @@ class ChessTrainer:
             return game_record
         
         except Exception as e:
-            print(f"Error in self-play game: {e}")
+            print(f"Error in self-play game: {e}", flush=True)
+            import traceback
+            traceback.print_exc()
             return None
     
     def _add_game_to_buffer(self, game_record):
